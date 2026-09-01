@@ -8,9 +8,12 @@ import { UserDetails } from './interfaces/interface';
 
 export class Handlers {
     public getRoot(_req: Request, res: Response) {
-        const indexPath = path.resolve(process.cwd(), 'index.html');
-        if (fs.existsSync(indexPath)) {
-            res.sendFile(indexPath);
+        const publicIndexPath = path.resolve(process.cwd(), 'public/index.html');
+        const rootIndexPath = path.resolve(process.cwd(), 'index.html');
+        if (fs.existsSync(publicIndexPath)) {
+            res.sendFile(publicIndexPath);
+        } else if (fs.existsSync(rootIndexPath)) {
+            res.sendFile(rootIndexPath);
         } else {
             res.send(`<h1>GitHub Readme Activity Graph 📈</h1>`);
         }
